@@ -10,12 +10,7 @@ import {
 import { createClient } from "@/app/utils/supabase/server";
 import { redirect } from "next/navigation";
 
-async function logout() {
-  'use server'
-  const supabase = await createClient()
-  await supabase.auth.signOut()
-  redirect('/login')
-}
+import logout from "./action";
 
 interface NavbarProps {
   email?: string | null;

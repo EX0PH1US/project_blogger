@@ -3,7 +3,7 @@
 import { createClient } from "@/app/utils/supabase/server"
 import { redirect } from "next/navigation"
 
-export async function login(formData: FormData) {
+export async function login(prevState: any, formData: FormData) {
     const supabase = await createClient()
 
     const { error }  = await supabase.auth.signInWithPassword({
@@ -12,7 +12,7 @@ export async function login(formData: FormData) {
     })
 
     if (error) {
-        redirect('/error')
+        return { error: error.message }
     }
 
     redirect('/dashboard')

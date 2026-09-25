@@ -1,3 +1,5 @@
+"use client";
+
 import { signUp } from "./action";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,21 +11,20 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { redirect } from "next/navigation";
-import { createClient } from "../utils/supabase/server";
 import Navbar from "@/components/NavBar";
+import NProgress from "nprogress";
+import { useActionState, useEffect } from "react";
 
-export default async function Login() {
-  const supabase = await createClient();
+export default function Login() {
+  const [state, formAction, isPending] = useActionState(signUp, null);
 
-  const {
-    error,
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (user && !error) {
-    redirect("/dashboard");
-  }
+  useEffect(() => {
+    if (isPending) {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [isPending]);
 
   return (
     <>
@@ -31,13 +32,13 @@ export default async function Login() {
       <div className="flex min-h-screen items-center justify-center p-4">
         <Card className="w-full max-w-sm">
           <CardHeader>
-            <CardTitle className="text-2xl">Sign Up</CardTitle>
+            <CardTitle className="text-2xl">Sign In</CardTitle>
             <CardDescription>
-              Enter your credentials to register your account
+              Enter credentials to register your account
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form action={signUp} className="space-y-4">
+            <form action={formAction} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -52,8 +53,8 @@ export default async function Login() {
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" name="password" type="password" required />
               </div>
-              <Button type="submit" className="w-full">
-                Sign Up
+              <Button type="submit" className="w-full" disabled={isPending}>
+                {isPending ? "Signing Up..." : "Sign Up"}
               </Button>
             </form>
           </CardContent>

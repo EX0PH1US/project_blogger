@@ -2,7 +2,7 @@
 import { createClient } from "../utils/supabase/server";
 import { redirect } from "next/navigation";
 
-export async function signUp(formData: FormData) {
+export async function signUp(prevState: any, formData: FormData) {
     const supabase = await createClient()
 
     const { error } = await supabase.auth.signUp({
@@ -11,7 +11,7 @@ export async function signUp(formData: FormData) {
     })
 
     if (error) {
-        redirect('/error')
+        return { error: error.message }
     }
 
     redirect('/dashboard')
