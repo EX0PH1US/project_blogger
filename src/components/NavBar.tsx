@@ -21,7 +21,7 @@ export default function Navbar({ email }: NavbarProps) {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Brand / Logo */}
-        <Link href="/" className="text-xl font-bold tracking-tight">
+        <Link href="/posts" className="text-xl font-bold tracking-tight">
           Blogger
         </Link>
 
