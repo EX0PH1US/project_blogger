@@ -11,16 +11,21 @@ export default function Home() {
         </h1>
 
         <p className="text-lg text-muted-foreground">
-          A minimalistic space for your thoughts, ideas, and stories. Start reading or publishing today.
+          A minimalistic space for your thoughts, ideas, and stories. Start
+          reading or publishing today.
         </p>
 
-        <div className="flex items-center gap-4 pt-2">
+        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
           <Link href="/login">
             <Button>Sign In</Button>
           </Link>
 
           <Link href="/signup">
             <Button variant="outline">Sign Up</Button>
+          </Link>
+
+          <Link href="/posts">
+            <Button variant="secondary">Browse Posts</Button>
           </Link>
         </div>
       </main>
